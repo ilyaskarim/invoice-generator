@@ -3,7 +3,11 @@
     <router-view/>
   </div>
 </template>
-
+<script type="text/javascript">
+  export default {
+    name: "App"
+  };
+</script>
 <style>
   body {
     font-family: Open sans, Lato, Karla, open sans, Roboto, Latoo, Arial;

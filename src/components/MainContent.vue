@@ -7,27 +7,39 @@
 					<th>Description</th>
 					<th>Quantity</th>
 					<th>Unit Price</th>
-					<th>Amount</th>
+					<th>Total Amount</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>#</td>
-					<td>Description</td>
-					<td>Quantity</td>
-					<td>Unit Price</td>
-					<td>Amount</td>
+				<tr v-for="(row,index) in rows" >
+					<td>{{index+1}}</td>
+					<td contenteditable="true" accept-edited-content="true" >{{(row.description) ? row.description : 'Not Set'}}</td>
+					<td contenteditable="true" accept-edited-content="true" >{{(row.quantity) ? row.quantity : 'Not Set'}}</td>
+					<td contenteditable="true" accept-edited-content="true" >{{(row.unitPrice) ? row.unitPrice : 'Not Set'}}</td>
+					<td>120</td>
 					<td>
-						<i class="mdi mdi-plus" ></i>
+						<i v-if="rows.length == (index + 1)" @click="addTableRow" class="mdi add-table-row mdi-plus" ></i>
+						<i @click="addTableRow" class="mdi add-table-row mdi-minus" ></i>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		{{ rows }}
 	</div>
 </template>
 <script type="text/javascript">
+	import {
+		mapGetters,
+		mapMutations
+	} from "vuex";
 	export default {
 		name: "MainContent",
+		computed: {
+			...mapGetters(['rows']),
+		},
+		methods: {
+			...mapMutations(['addTableRow'])
+		}
 	};
 </script>
 <style type="text/css" scoped >
@@ -43,5 +55,8 @@
 	}
 	.main-content td {
 		height: 30px;
+	}
+	.add-table-row {
+		cursor: pointer;
 	}
 </style>

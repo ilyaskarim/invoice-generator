@@ -1,5 +1,5 @@
 <template>
-  	<div class="home">
+  	<div class="home" @click="setEditing" >
   		<Header />
   		<MainContent />
 	</div>
@@ -8,12 +8,46 @@
 <script>
 const Header = () => import("@/components/Header.vue")
 const MainContent = () => import("@/components/MainContent.vue")
+import {
+	mapMutations
+} from "vuex";
 export default {
   name: 'home',
   components: {
   	Header,
   	MainContent
-  }
+  },
+  data() {
+  	return {
+  		currentEditing: null,
+  		isEditingTable: false,
+  	}
+  },
+  mounted() {
+  	document.addEventListener('keyup',this.keypressHandle);
+  },	
+  methods: {
+  	...mapMutations(['setContent']),
+  	setEditing(e) {
+  		let hasClass = e.target.classList.contains('editable');
+  		if (hasClass) {
+  			this.currentEditing = e.target;
+  			console.log(this.currentEditing);
+  		}else {
+  			this.currentEditing = null;
+  		}
+  	},
+  	keypressHandle() {
+  		if (this.currentEditing) {
+  			let key = this.currentEditing.getAttribute('edit-key');
+  			let html = this.currentEditing.innerHTML;
+  			this.setContent({
+  				name: key,
+  				content: html
+  			})
+  		}
+  	}
+  },
 };
 </script>
 <style type="text/css">
