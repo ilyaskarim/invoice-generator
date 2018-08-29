@@ -5,14 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		invoiceHeader: "",
-		clientName: "",
-		dateIssued: "",
-		invoiceNumber: "",
-		yourName: "",
-		address: "",
-		townCity: "",
-		postalCode: "",
+		invoiceHeader: "Invoice",
+		clientName: "Client Name",
+		dateIssued: "12 March 2012",
+		invoiceNumber: "#1",
+		yourName: "Your Name",
+		address: "Your address",
+		townCity: "Your Town",
+		postalCode: "15100",
 		table: {
 			emptyRow: {description: "", quantity: "", unitPrice: ""},
 			columns: {
@@ -34,6 +34,10 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		deleteRow(_state, index) {
+			console.log(index);
+			_state.table.rows.splice(index,1)
+		},
 		setTableRowAttrValue(_state, payload) {
 			_state.table.rows[payload.index][payload.attribute] = payload.content;
 		},

@@ -19,7 +19,7 @@
 					<td>120</td>
 					<td>
 						<i v-if="rows.length == (index + 1)" @click="addTableRow" class="mdi add-table-row mdi-plus" ></i>
-						<i @click="addTableRow" class="mdi add-table-row mdi-minus" ></i>
+						<i @click="deleteRow(index)" v-if="rows.length > 1" class="mdi add-table-row mdi-minus" ></i>
 					</td>
 				</tr>
 			</tbody>
@@ -38,7 +38,7 @@
 			...mapGetters(['rows']),
 		},
 		methods: {
-			...mapMutations(['addTableRow'])
+			...mapMutations(['addTableRow','deleteRow'])
 		}
 	};
 </script>
